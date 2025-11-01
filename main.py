@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
-import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 # Modelo de entrada usando Pydantic
@@ -32,4 +31,5 @@ async def process_text(data: TextInput):
         "uppercased": data.text.upper()
     }
     return JSONResponse(content=result)
+
 

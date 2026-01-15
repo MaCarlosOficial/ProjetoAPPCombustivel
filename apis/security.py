@@ -7,14 +7,15 @@ from fastapi import Depends, HTTPException, status
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from pydantic import BaseModel
+import os
 
 # -------------------- Configs/JWT --------------------
-SECRET_KEY = "API-FIND-FUEL-SECRET-KEY"  
+SECRET_KEY = os.getenv("SECRET_KEY", "API-FIND-FUEL-SECRET-KEY")  
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=os.getenv("LOGIN_API_URL", "token"))
 
 # -------------------- DB Setup -----------------------
 DATABASE_URL = "sqlite:///./usuarios.db"

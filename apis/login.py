@@ -171,3 +171,13 @@ def deletar_usuario(user_id: int, current_user: UsuarioDB = Depends(get_current_
 @app.get("/valida-token")
 async def validate_token(current_user: UsuarioDB = Depends(get_current_user), db: Session = Depends(get_db)):
     return {"valid": True, "username": current_user}
+
+# Endpoint para health check
+from datetime import datetime
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "healthy", 
+        "service": "login",  # ou "consulta"
+        "timestamp": datetime.now().isoformat()
+    }

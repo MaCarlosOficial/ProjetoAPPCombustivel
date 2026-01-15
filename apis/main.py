@@ -84,3 +84,13 @@ def consultar_combustiveis(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Erro ao processar requisição: {str(e)}"
         )
+    
+# Endpoint para health check
+from datetime import datetime
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "healthy", 
+        "service": "login",  # ou "consulta"
+        "timestamp": datetime.now().isoformat()
+    }

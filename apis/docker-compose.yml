@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_combustivel
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  auth-api:
+    build: .
+    container_name: auth_api
+    command: >
+      uvicorn auth_api:app
+      --host 0.0.0.0
+      --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+
+  users-api:
+    build: .
+    container_name: users_api
+    command: >
+      uvicorn users_api:app
+      --host 0.0.0.0
+      --port 5002
+    ports:
+      - "5002:5002"
+    volumes:
+      - .:/app
+    depends_on:
+      - auth-api
+
+  combustivel-api:
+    build: .
+    container_name: combustivel_api
+    command: >
+      uvicorn main:app
+      --host 0.0.0.0
+      --port 5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+    depends_on:
+      - auth-api
+      - postgres
+
+volumes:
+  pgdata:

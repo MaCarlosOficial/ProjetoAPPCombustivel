@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import sys
+import os
 
 # Criar app principal
 app = FastAPI(title="API Find Fuel")
@@ -14,14 +14,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Importar e montar a API de login
-sys.path.insert(0, 'apis')
-from apis.login import app as login_app
-from apis.main import app as main_app
+# DEBUG: Verificar estrutura
+print("=== DEBUG: Estrutura de diretórios ===")
+print(f"Diretório atual: {os.getcwd()}")
+print(f"Conteúdo: {os.listdir('.')}")
+if os.path.exists('apis'):
+    print(f"Conteúdo de apis/: {os.listdir('apis')}")
+else:
+    print("❌ Pasta 'apis' não encontrada!")
 
-# Montar ambas as APIs com prefixos diferentes
-app.mount("/login", login_app)    # Rotas em /login/
-app.mount("/findFuel", main_app)       # Rotas em /api/
+# Importar e montar a API de login
+try:
+    from apis.login import app as login_app
+    from apis.main import app as main_app
+    
+    # Montar ambas as APIs com prefixos diferentes
+    app.mount("/login", login_app)    # Rotas em /login/
+    app.mount("/findFuel", main_app)  # Rotas em /findFuel/
+    
+    print("✅ APIs importadas com sucesso!")
+    
+except ImportError as e:
+    print(f"❌ Erro ao importar APIs: {e}")
+    import traceback
+    traceback.print_exc()
 
 # Rota raiz
 @app.get("/")
@@ -34,3 +50,8 @@ def root():
             "fuel_prices": "/findFuel/fuelPrices"
         }
     }
+
+# Health check
+@app.get("/health")
+def health():
+    return {"status": "ok", "service": "main-gateway"}

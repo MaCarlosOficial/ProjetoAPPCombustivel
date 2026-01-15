@@ -14,7 +14,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="http://127.0.0.1:5000/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # -------------------- DB Setup -----------------------
 DATABASE_URL = "sqlite:///./usuarios.db"

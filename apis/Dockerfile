@@ -12,4 +12,4 @@ COPY . .
 # EXPOSE 8000   <-- pode remover
 
 CMD uvicorn main:app --host 0.0.0.0 --port $PORT
-
+CMD uvicorn login:app --host 0.0.0.0 --port $PORT

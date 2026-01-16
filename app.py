@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()  # Carrega variáveis do arquivo .env se existir
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os

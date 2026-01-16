@@ -18,15 +18,11 @@ app.add_middleware(
 print("=== DEBUG: Estrutura de diretórios ===")
 print(f"Diretório atual: {os.getcwd()}")
 print(f"Conteúdo: {os.listdir('.')}")
-if os.path.exists('apis'):
-    print(f"Conteúdo de apis/: {os.listdir('apis')}")
-else:
-    print("❌ Pasta 'apis' não encontrada!")
 
 # Importar e montar a API de login
 try:
-    from apis.login import app as login_app
-    from apis.main import app as main_app
+    from login import app as login_app
+    from main import app as main_app
     
     # Montar ambas as APIs com prefixos diferentes
     app.mount("/login", login_app)    # Rotas em /login/

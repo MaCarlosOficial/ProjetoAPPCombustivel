@@ -2,8 +2,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from database import SessionPostgres
-from security import get_current_user
+from APIS.database import SessionPostgres
+from APIS.security import get_current_user
 
 app = FastAPI(title="API de Combustível")
 

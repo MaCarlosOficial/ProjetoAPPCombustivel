@@ -21,8 +21,8 @@ print(f"Conteúdo: {os.listdir('.')}")
 
 # Importar e montar a API de login
 try:
-    from login import app as login_app
-    from main import app as main_app
+    from APIS.login import app as login_app
+    from APIS.main import app as main_app
     
     # Montar ambas as APIs com prefixos diferentes
     app.mount("/login", login_app)    # Rotas em /login/

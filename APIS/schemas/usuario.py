@@ -15,3 +15,9 @@ class UsuarioOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class UsuarioUpdate(BaseModel):
+    nome: str
+    usuario: str
+    email: EmailStr
+    senha: str

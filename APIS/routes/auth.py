@@ -32,7 +32,14 @@ def login(
     return {
         "access_token": create_access_token(user),
         "refresh_token": create_refresh_token(user),
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user": {
+            "id": user.id,
+            "usuario": user.usuario,
+            "nome": user.nome,
+            "email": user.email,
+            "role": user.role
+        }
     }
 
 @router.post("/refresh", response_model=Token)

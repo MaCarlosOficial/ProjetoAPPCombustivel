@@ -8,3 +8,4 @@ email-validator
 pydantic
 python-multipart
 python-dotenv
+pyscopg2-binary
